@@ -6,8 +6,8 @@
 \usage{
 magicIcons(
   icon = "circle",
-  markerColor = awesomePalette$blue,
-  iconColor = awesomePalette$white,
+  markerColor = leaf.magic::awesomePalette$blue,
+  iconColor = leaf.magic::awesomePalette$white,
   marker = "marker",
   markerSize = 30L,
   library = "fontawesome",
