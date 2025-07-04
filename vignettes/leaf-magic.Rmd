@@ -274,7 +274,7 @@ leaflet(port_talbot) %>%
   addQuickMarker("none") %>%
   addLayersControl(
     baseGroups = c("circle", "square", "diamond", "heart", "star", "none"),
-    options = layersControlOptions(F)
+    options = layersControlOptions(FALSE)
   ) %>%
   addIconLegend(
     position = "bottomleft",

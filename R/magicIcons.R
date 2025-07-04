@@ -64,14 +64,16 @@
 #'     icon = ~ magicIcons(icon, color, "white"),
 #'     popup = ~site
 #'   )
-magicIcons <- function(icon = "circle",
-                       markerColor = leaf.magic::awesomePalette$blue,
-                       iconColor = leaf.magic::awesomePalette$white,
-                       marker = "marker",
-                       markerSize = 30L,
-                       library = "fontawesome",
-                       className = NULL,
-                       dir = tempdir()) {
+magicIcons <- function(
+  icon = "circle",
+  markerColor = leaf.magic::awesomePalette$blue,
+  iconColor = leaf.magic::awesomePalette$white,
+  marker = "marker",
+  markerSize = 30L,
+  library = "fontawesome",
+  className = NULL,
+  dir = tempdir()
+) {
   library <- match.arg(library, c("fontawesome", "bootstrap", "ionicons"))
 
   marker <-
@@ -81,7 +83,10 @@ magicIcons <- function(icon = "circle",
       several.ok = TRUE
     )
   marker[marker %in% c("circle", "square", "star", "heart", "diamond")] <-
-    paste0("fas fa-", marker[marker %in% c("circle", "square", "star", "heart", "diamond")])
+    paste0(
+      "fas fa-",
+      marker[marker %in% c("circle", "square", "star", "heart", "diamond")]
+    )
   marker[marker == "marker"] <- "location-pin"
 
   combinations <-
@@ -100,18 +105,20 @@ magicIcons <- function(icon = "circle",
   unique_combos <- unique(unique_combos)
 
   make_fa_icon <- function(icon, markerColor, iconColor, marker, markerSize) {
-    url <- paste0(dir,
-                  "/leafmagic-",
-                  icon,
-                  "_",
-                  markerColor,
-                  "_",
-                  iconColor,
-                  "_",
-                  marker,
-                  "_",
-                  library,
-                  ".png")
+    url <- paste0(
+      dir,
+      "/leafmagic-",
+      icon,
+      "_",
+      markerColor,
+      "_",
+      iconColor,
+      "_",
+      marker,
+      "_",
+      library,
+      ".png"
+    )
 
     time <- Sys.time() %>% as.numeric()
 
@@ -136,7 +143,12 @@ magicIcons <- function(icon = "circle",
       }
 
       logo <-
-        magick::image_read(t_logo) %>% magick::image_scale(ifelse(marker %in% c("location-pin", "fas fa-star"), "x200", "x250"))
+        magick::image_read(t_logo) %>%
+        magick::image_scale(ifelse(
+          marker %in% c("location-pin", "fas fa-star"),
+          "x200",
+          "x250"
+        ))
 
       if (marker != "none") {
         t_pin <- tempfile(pattern = "pin_")
@@ -151,14 +163,24 @@ magicIcons <- function(icon = "circle",
 
         pin <- magick::image_read(t_pin)
 
-        h_adj <- (magick::image_info(pin)$width - magick::image_info(logo)$width) /
+        h_adj <- (magick::image_info(pin)$width -
+          magick::image_info(logo)$width) /
           2
 
-        v_adj <- (magick::image_info(pin)$height - magick::image_info(logo)$height) /
-          ifelse(marker == "location-pin", 3.5, ifelse(marker == "fas fa-star", 1.5, 2))
+        v_adj <- (magick::image_info(pin)$height -
+          magick::image_info(logo)$height) /
+          ifelse(
+            marker == "location-pin",
+            3.5,
+            ifelse(marker == "fas fa-star", 1.5, 2)
+          )
 
         marker_img <-
-          magick::image_composite(pin, logo, offset = paste0("+", h_adj, "+", v_adj))
+          magick::image_composite(
+            pin,
+            logo,
+            offset = paste0("+", h_adj, "+", v_adj)
+          )
       } else {
         marker_img <- logo
       }
@@ -176,7 +198,11 @@ magicIcons <- function(icon = "circle",
       iconAnchorX = ifelse(marker == "location-pin", markerSize / 2, 0),
       iconAnchorY = ifelse(marker == "location-pin", markerSize * ratio, 0),
       popupAnchorX = ifelse(marker == "location-pin", .Machine$double.eps, 0),
-      popupAnchorY = ifelse(marker == "location-pin", -(markerSize * ratio) * 0.8, 0),
+      popupAnchorY = ifelse(
+        marker == "location-pin",
+        -(markerSize * ratio) * 0.8,
+        0
+      ),
       className = className
     )
   }
@@ -193,7 +219,7 @@ magicIcons <- function(icon = "circle",
       by = c("icon", "markerColor", "iconColor", "marker", "markerSize")
     )
 
-  combinations <- combinations[order(combinations$rn),]
+  combinations <- combinations[order(combinations$rn), ]
   rownames(combinations) <- NULL
 
   do.call(leaflet::iconList, combinations$themarker)
@@ -208,7 +234,19 @@ read_ionicon <- function(icon, color, dim = "1em") {
 
   svg <- readLines(con, warn = FALSE)
 
-  gsub('viewBox=', paste0('style="vertical-align:-0.125em;height:', dim, ';width:', dim, ';fill:', color, ';" viewBox='), svg)
+  gsub(
+    'viewBox=',
+    paste0(
+      'style="vertical-align:-0.125em;height:',
+      dim,
+      ';width:',
+      dim,
+      ';fill:',
+      color,
+      ';" viewBox='
+    ),
+    svg
+  )
 }
 
 #' Darken a colour slightly for icon border

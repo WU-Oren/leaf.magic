@@ -1,4 +1,3 @@
-
 #' Icon Mapping
 #'
 #' Conveniently maps data values to icons for use in `magicIcons()`, analogous
@@ -26,9 +25,7 @@
 #'
 #' @rdname icon-scales
 #' @order 1
-iconFactor <- function(icons,
-                       domain,
-                       na.icon = "question") {
+iconFactor <- function(icons, domain, na.icon = "question") {
   # match factors to icons
   icons <- unique(icons)
   domain <- unique(domain)
@@ -43,11 +40,13 @@ iconFactor <- function(icons,
 #' @rdname icon-scales
 #' @order 2
 #' @export
-iconBin <- function(icons,
-                    domain,
-                    bins = length(icons),
-                    na.icon = "question",
-                    right = FALSE) {
+iconBin <- function(
+  icons,
+  domain,
+  bins = length(icons),
+  na.icon = "question",
+  right = FALSE
+) {
   # build around colorBin to match outputs
   fun <- leaflet::colorBin(
     "viridis",
@@ -76,12 +75,14 @@ iconBin <- function(icons,
 #' @rdname icon-scales
 #' @order 3
 #' @export
-iconQuantile <- function(icons,
-                         domain,
-                         n = length(icons),
-                         probs = seq(0, 1, length.out = n + 1),
-                         na.icon = "question",
-                         right = FALSE) {
+iconQuantile <- function(
+  icons,
+  domain,
+  n = length(icons),
+  probs = seq(0, 1, length.out = n + 1),
+  na.icon = "question",
+  right = FALSE
+) {
   # build around colorBin to match outputs
   fun <- leaflet::colorQuantile(
     "viridis",

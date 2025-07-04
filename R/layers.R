@@ -27,16 +27,18 @@
 #'   colors = c("red", "blue"),
 #'   title = "Student Hangout"
 #' )
-addIconLegend <- function(map,
-                          icons,
-                          labels,
-                          colors = "black",
-                          title = NULL,
-                          library = "fontawesome",
-                          position = c("topright", "bottomright", "bottomleft", "topleft"),
-                          layerId = NULL,
-                          className = "info legend",
-                          data = leaflet::getMapData(map)) {
+addIconLegend <- function(
+  map,
+  icons,
+  labels,
+  colors = "black",
+  title = NULL,
+  library = "fontawesome",
+  position = c("topright", "bottomright", "bottomleft", "topleft"),
+  layerId = NULL,
+  className = "info legend",
+  data = leaflet::getMapData(map)
+) {
   position <- match.arg(position)
 
   # format title
@@ -73,19 +75,20 @@ addIconLegend <- function(map,
     }
 
   html <-
-    paste0(html_title,
-           paste0(
-             purrr::pmap_vec(
-               data.frame(
-                 icon = icons,
-                 label = labels,
-                 color = colors
-               ),
-               assemble_legend_item
-             ),
-             collapse = "<br>"
-           ),
-           collapse = "<br>"
+    paste0(
+      html_title,
+      paste0(
+        purrr::pmap_vec(
+          data.frame(
+            icon = icons,
+            label = labels,
+            color = colors
+          ),
+          assemble_legend_item
+        ),
+        collapse = "<br>"
+      ),
+      collapse = "<br>"
     )
 
   leaflet::addControl(
@@ -110,10 +113,7 @@ addIconLegend <- function(map,
 #'
 #' @export
 addIconAttribution <-
-  function(map,
-           library = "fontawesome",
-           layerId = NULL,
-           group = NULL) {
+  function(map, library = "fontawesome", layerId = NULL, group = NULL) {
     if (library == "fontawesome") {
       attr <-
         'Icons by <a href="https://fontawesome.com" target="_blank" rel="noopener noreferrer">FontAwesome</a>, licensed under <a href="https://fontawesome.com/license/free" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>'

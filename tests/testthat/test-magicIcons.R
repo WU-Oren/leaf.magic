@@ -21,10 +21,20 @@ test_that("Vectors work", {
     magicIcons(c("circle", "x"), "blue", "white", library = "bootstrap")
   )
   testthat::expect_no_error(
-    magicIcons(c("circle", "x"), c("blue", "red"), "white", library = "bootstrap")
+    magicIcons(
+      c("circle", "x"),
+      c("blue", "red"),
+      "white",
+      library = "bootstrap"
+    )
   )
   testthat::expect_no_error(
-    magicIcons(c("circle", "x"), c("blue", "red"), c("white", "black"), library = "bootstrap")
+    magicIcons(
+      c("circle", "x"),
+      c("blue", "red"),
+      c("white", "black"),
+      library = "bootstrap"
+    )
   )
 })
 
@@ -33,6 +43,11 @@ test_that("Unequal vectors fail", {
     magicIcons(c("circle", "x"), c("red", "blue", "green"), "black")
   )
   testthat::expect_error(
-    magicIcons(c("circle", "x"), c("red", "blue", "green"), "black", library = "bootstrap")
+    magicIcons(
+      c("circle", "x"),
+      c("red", "blue", "green"),
+      "black",
+      library = "bootstrap"
+    )
   )
 })
