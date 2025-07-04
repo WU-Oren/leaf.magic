@@ -5,8 +5,7 @@
 \alias{awesomePalette}
 \title{Palette used by \code{\link[leaflet:awesomeIcons]{leaflet::awesomeIcons()}}}
 \format{
-\subsection{\code{awesomePalette} A named list of length 19.}{
-}
+An object of class \code{list} of length 19.
 }
 \usage{
 awesomePalette
