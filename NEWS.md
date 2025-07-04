@@ -1,4 +1,4 @@
-# leaf.magic (development version)
+# leaf.magic 0.1.0
 
 ## New Features
 
