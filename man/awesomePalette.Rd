@@ -5,16 +5,16 @@
 \alias{awesomePalette}
 \title{Palette used by \code{\link[leaflet:awesomeIcons]{leaflet::awesomeIcons()}}}
 \format{
-\subsection{\code{awesomePalette}}{
-
-A named list of length 19.
+\subsection{\code{awesomePalette} A named list of length 19.}{
 }
 }
 \usage{
 awesomePalette
 }
 \description{
-\code{\link[leaflet:awesomeIcons]{leaflet::awesomeIcons()}} takes one of 19 colours, but its "red" colour is not the same as R's base "red" defined in \code{\link[=colors]{colors()}}. This list maps the awesome colours onto the hex codes they represent.
+\code{\link[leaflet:awesomeIcons]{leaflet::awesomeIcons()}} takes one of 19 colours, but its "red" colour is
+not the same as R's base "red" defined in \code{\link[=colors]{colors()}}. This list maps the
+awesome colours onto the hex codes they represent.
 }
 \examples{
 unlist(awesomePalette)

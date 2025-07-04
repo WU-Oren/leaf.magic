@@ -10,7 +10,7 @@ License: MIT + file LICENSE
 URL: https://jack-davison.github.io/leaf.magic/,
     https://github.com/jack-davison/leaf.magic
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)
 Imports: 
     bsicons,
     fontawesome,

@@ -62,7 +62,7 @@ single session.
 \examples{
 # create map
 library(leaflet)
-port_talbot \%>\%
+port_talbot |>
   dplyr::mutate(
     icon = dplyr::case_match(
       site_type,
@@ -78,9 +78,9 @@ port_talbot \%>\%
       "Urban Background" ~ "#28A197",
       .default = "#3D3D3DFF"
     )
-  ) \%>\%
-  leaflet() \%>\%
-  addProviderTiles("CartoDB.Voyager") \%>\%
+  ) |>
+  leaflet() |>
+  addProviderTiles("CartoDB.Voyager") |>
   addMarkers(
     icon = ~ magicIcons(icon, color, "white"),
     popup = ~site

@@ -41,7 +41,7 @@
 #' @examples
 #' # create map
 #' library(leaflet)
-#' port_talbot %>%
+#' port_talbot |>
 #'   dplyr::mutate(
 #'     icon = dplyr::case_match(
 #'       site_type,
@@ -57,9 +57,9 @@
 #'       "Urban Background" ~ "#28A197",
 #'       .default = "#3D3D3DFF"
 #'     )
-#'   ) %>%
-#'   leaflet() %>%
-#'   addProviderTiles("CartoDB.Voyager") %>%
+#'   ) |>
+#'   leaflet() |>
+#'   addProviderTiles("CartoDB.Voyager") |>
 #'   addMarkers(
 #'     icon = ~ magicIcons(icon, color, "white"),
 #'     popup = ~site
@@ -120,7 +120,7 @@ magicIcons <- function(
       ".png"
     )
 
-    time <- Sys.time() %>% as.numeric()
+    time <- as.numeric(Sys.time())
 
     if (!file.exists(url)) {
       t_logo <- tempfile(pattern = paste0(time, "logo_"))
@@ -143,12 +143,14 @@ magicIcons <- function(
       }
 
       logo <-
-        magick::image_read(t_logo) %>%
-        magick::image_scale(ifelse(
-          marker %in% c("location-pin", "fas fa-star"),
-          "x200",
-          "x250"
-        ))
+        magick::image_scale(
+          magick::image_read(t_logo),
+          ifelse(
+            marker %in% c("location-pin", "fas fa-star"),
+            "x200",
+            "x250"
+          )
+        )
 
       if (marker != "none") {
         t_pin <- tempfile(pattern = "pin_")

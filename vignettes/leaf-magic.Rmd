@@ -59,8 +59,8 @@ port_talbot$popup <-
     port_talbot$open_year
   )
 
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(popup = ~popup)
 ```
 
@@ -69,8 +69,8 @@ leaflet(port_talbot) %>%
 We can use the `magicIcons()` function to swap out the default markers for some `{leaf.magic}` markers. The important argument here is `icon`, which is the (in this case) Font Awesome icon of interest^[See `fontawesome::fa_metadata()` for a complete list].
 
 ```{r map-simple}
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = magicIcons(
@@ -91,8 +91,8 @@ iconPal <- iconFactor(
   domain = site_types
 )
 
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -111,8 +111,8 @@ iconPalYr <- iconQuantile(
   domain = port_talbot$open_year
 )
 
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -128,8 +128,8 @@ leaflet(port_talbot) %>%
 ```{r map-varcol-fct}
 catPal <- colorFactor(c("#12436D", "#28A197", "#801650"), port_talbot$site_type)
 
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -137,7 +137,7 @@ leaflet(port_talbot) %>%
       markerColor = catPal(site_type),
       iconColor = "#F7F7F7FF"
     )
-  ) %>%
+  ) |>
   addLegend(
     pal = catPal,
     values = port_talbot$site_type,
@@ -150,8 +150,8 @@ As the markers themselves can be set to *any* colour, we can even use a continuo
 ```{r map-varcol-num}
 palNum <- colorNumeric("viridis", domain = port_talbot$open_year)
 
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -159,7 +159,7 @@ leaflet(port_talbot) %>%
       markerColor = palNum(open_year),
       iconColor = "white"
     )
-  ) %>%
+  ) |>
   addLegend(
     pal = palNum,
     values = port_talbot$open_year,
@@ -173,8 +173,8 @@ leaflet(port_talbot) %>%
 Unlike `leaflet::awesomeIcons()`, `magicIcons()` can be easily re-sized. Much like in `leaflet::addCircleMarkers()`, this can vary with another variable; let's make the closed sites a bit smaller than the open ones with `markerSize`. Note the default is `30L`, which is roughly the same size as the default `leaflet::addMarkers()` marker.
 
 ```{r map-varsize}
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -183,7 +183,7 @@ leaflet(port_talbot) %>%
       markerSize = ifelse(open, 30L, 20L),
       markerColor = catPal(site_type)
     )
-  ) %>%
+  ) |>
   addLegend(
     pal = catPal,
     values = port_talbot$site_type,
@@ -196,8 +196,8 @@ leaflet(port_talbot) %>%
 `{leaf.magic}` provides the `addIconLegend()` function to help construct an icon legend, similar to `leaflet::addLegend()` constructs colour legends.
 
 ```{r map-iconlegend}
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -205,13 +205,13 @@ leaflet(port_talbot) %>%
       markerColor = palNum(open_year),
       iconColor = "white"
     )
-  ) %>%
+  ) |>
   addLegend(
     pal = palNum,
     values = port_talbot$open_year,
     title = "Opening Year",
     labFormat = labelFormat(big.mark = "")
-  ) %>%
+  ) |>
   addIconLegend(
     icons = c("industry", "car", "house"),
     labels = site_types,
@@ -222,8 +222,8 @@ leaflet(port_talbot) %>%
 Often, the colour of the marker (or icon) and the icon itself will align. In that case, the `colors` argument of `addIconLegend()` can be used to create an efficient, combined legend.
 
 ```{r map-iconcollegend}
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
   addMarkers(
     popup = ~popup,
     icon = ~ magicIcons(
@@ -231,7 +231,7 @@ leaflet(port_talbot) %>%
       iconColor = "white",
       markerColor = catPal(site_type)
     )
-  ) %>%
+  ) |>
   addIconLegend(
     icons = iconPal(site_types),
     labels = site_types,
@@ -251,7 +251,7 @@ addQuickMarker <- function(map, marker) {
   if (marker == "none") {
     iconColor <- markerColor
   }
-  map %>%
+  map |>
     addMarkers(
       popup = ~ popup,
       icon = ~ magicIcons(
@@ -264,18 +264,18 @@ addQuickMarker <- function(map, marker) {
     )
 }
 
-leaflet(port_talbot) %>%
-  addProviderTiles(providers$CartoDB.Positron) %>%
-  addQuickMarker("circle") %>%
-  addQuickMarker("square") %>%
-  addQuickMarker("diamond") %>%
-  addQuickMarker("heart") %>%
-  addQuickMarker("star") %>%
-  addQuickMarker("none") %>%
+leaflet(port_talbot) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addQuickMarker("circle") |>
+  addQuickMarker("square") |>
+  addQuickMarker("diamond") |>
+  addQuickMarker("heart") |>
+  addQuickMarker("star") |>
+  addQuickMarker("none") |>
   addLayersControl(
     baseGroups = c("circle", "square", "diamond", "heart", "star", "none"),
     options = layersControlOptions(FALSE)
-  ) %>%
+  ) |>
   addIconLegend(
     position = "bottomleft",
     icons = iconPal(site_types),
@@ -315,8 +315,8 @@ breweries91$facolor <- sample(cols, nrow(breweries91), replace = TRUE)
 
 breweries91$hexcolor <- unlist(use.names = FALSE, awesomePalette[breweries91$facolor])
 
-leaflet(breweries91) %>%
-  addTiles() %>%
+leaflet(breweries91) |>
+  addTiles() |>
   addAwesomeMarkers(
     icon = ~ awesomeIcons(
       icon = "circle",
@@ -325,7 +325,7 @@ leaflet(breweries91) %>%
       library = "fa"
     ),
     group = "Awesome"
-  ) %>%
+  ) |>
   addMarkers(
     icon = ~ magicIcons(
       icon = "fas fa-circle",
@@ -333,7 +333,7 @@ leaflet(breweries91) %>%
       iconColor = "#FFFFFF"
     ),
     group = "Magic"
-  ) %>%
+  ) |>
   addLayersControl(
     baseGroups = c("Awesome", "Magic")
   )
